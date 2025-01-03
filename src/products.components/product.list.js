@@ -31,7 +31,7 @@ function ProductList() {
 
   return (
     <div>
-      <h1>Product List</h1>
+      <h1 className='text-5xl font-bold text-center text-gray-700 mb-10'>Product List</h1>
       {error && <p>{error}</p>}
       <ul>
         {products.map((product, index) => (

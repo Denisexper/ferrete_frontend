@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './products.components/dashboard.js'; // Asegúrate de que la ruta de importación sea correcta
+import Dashboard from './products.components/product.list.js'; // Asegúrate de que la ruta de importación sea correcta
 
 function App() {
   return (

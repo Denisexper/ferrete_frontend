@@ -1,13 +1,23 @@
-
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './products.components/dashboard.js'; // Asegúrate de que la ruta de importación sea correcta
 
 function App() {
   return (
-    <div>
-      <h1>My App</h1>
-    </div>
+    <Router>
+      <div>
+        <h1>FERRETERIA EL CORRAL</h1>
+        <Routes>
+          {/* <Route path="/" element={<h2>Home Page</h2>} /> */}
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
 export default App;
+
+
+
 

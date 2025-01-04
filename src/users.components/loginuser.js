@@ -19,14 +19,14 @@ function Login() {
       credentials: 'include' // Incluir credenciales si estás manejando sesiones o cookies
     })
     .then((response) => {
-        console.log('Response object:', response);
+        /* console.log('Response object:', response); */
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
     .then((data) => {
-        console.log('Response from backend:', data);
+        /* console.log('Response from backend:', data); */
         if (data.message === 'User logged in successfully') {
           navigate('/dashboard'); // Redirigir al dashboard si el login es exitoso
         } else {

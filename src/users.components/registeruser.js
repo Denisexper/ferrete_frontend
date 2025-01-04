@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -33,7 +34,12 @@ function Register() {
       console.log(data);
       if (response.ok) {
         // Manejar éxito
-        alert("Usuario registrado exitosamente");
+        Swal.fire({
+          title: "Usuario registrado",
+          text: "El usuario se a registrado correctamente",
+          icon: "success",
+          confirmButtonText: "Accept"
+        })
         navigate("/");  // Redirigir al login después del registro
       } else {
         // Manejar errores

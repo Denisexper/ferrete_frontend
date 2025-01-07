@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Para la redirección
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,13 +27,11 @@ function Login() {
       })
       .then((data) => {
         if (data.message === 'User logged in successfully') {
-          // Guarda los datos del usuario en localStorage
-          const userData = {
-            name: data.name,  // Nombre del usuario desde la respuesta
-            email: data.email, // Email desde la respuesta
-            avatar: data.avatar || 'https://via.placeholder.com/150' // Imagen del usuario, usar una genérica si no hay
-          };
-          localStorage.setItem('user', JSON.stringify(userData)); // Guardar en localStorage
+          Swal.fire({
+            title: "bienvenido",
+            icon: "success",
+          confirmButtonText: "Accept"
+          })
 
           // Redirigir al dashboard
           navigate('/dashboard');

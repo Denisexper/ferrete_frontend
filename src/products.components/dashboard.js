@@ -7,7 +7,6 @@ function Dashboard() {
     <div>
       <h1>Dashboard</h1>
       <ProductList /> {/* Llamamos al componente que muestra los productos */}
-      <ProfileMenu />
     </div>
   );
 }

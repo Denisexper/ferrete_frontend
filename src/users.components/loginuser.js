@@ -19,16 +19,23 @@ function Login() {
       credentials: 'include' // Incluir credenciales si estás manejando sesiones o cookies
     })
       .then((response) => {
-        /* console.log('Response object:', response); */
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        /* console.log('Response from backend:', data); */
         if (data.message === 'User logged in successfully') {
-          navigate('/dashboard'); // Redirigir al dashboard si el login es exitoso
+          // Guarda los datos del usuario en localStorage
+          const userData = {
+            name: data.name,  // Nombre del usuario desde la respuesta
+            email: data.email, // Email desde la respuesta
+            avatar: data.avatar || 'https://via.placeholder.com/150' // Imagen del usuario, usar una genérica si no hay
+          };
+          localStorage.setItem('user', JSON.stringify(userData)); // Guardar en localStorage
+
+          // Redirigir al dashboard
+          navigate('/dashboard');
         } else {
           throw new Error('Login failed');
         }
@@ -91,4 +98,5 @@ function Login() {
 }
 
 export default Login;
+
 

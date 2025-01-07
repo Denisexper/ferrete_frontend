@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductList from '../Product.list.js'; // Asegúrate de que la ruta sea correcta
-import ProfileMenu from '../users.components/profile.menu.js';
+
 
 function Dashboard() {
   return (

@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-
 
 function ProductList({ setCart }) {
   const [products, setProducts] = useState([]);
@@ -29,48 +28,40 @@ function ProductList({ setCart }) {
       setError(error.message);
     });
   }, []);
- 
 
   const addToCart = (product) => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const newCart = [...storedCart];
-  
     const productIndex = newCart.findIndex(item => item.id === product.id);
-  
-    // Si el producto ya está en el carrito, incrementa la cantidad
+
     if (productIndex !== -1) {
       newCart[productIndex].quantity += 1;
     } else {
-      // Si el producto no está en el carrito, lo agregamos con cantidad 1
       newCart.push({ ...product, quantity: 1 });
     }
-  
-    // Guarda el carrito actualizado en localStorage
+
     localStorage.setItem('cart', JSON.stringify(newCart));
-  
-    // Solo actualizamos el estado de React si la función setCart está disponible
+
     if (typeof setCart === 'function') {
-      setCart(newCart); // Actualiza el estado en React
+      setCart(newCart);
     } else {
       console.error('setCart no está definido o no es una función');
     }
-  
-    // Muestra el SweetAlert con el mensaje de éxito
+
     Swal.fire({
       title: 'Producto agregado al carrito',
       text: 'El producto ha sido agregado correctamente',
       icon: 'success'
     });
   };
-  
 
   return (
     <div>
       <h1 className="text-5xl font-bold text-center text-gray-700 mb-10">Product List</h1>
       {error && <p>{error}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {products.map((product, index) => (
-          <div key={product.id || index} className="bg-white shadow-md rounded-lg overflow-hidden">
+        {products.map((product) => (
+          <div key={product.id} className="bg-white shadow-md rounded-lg overflow-hidden"> {/* Asegúrate de que product.id es único */}
             <img
               src={product.image}
               alt={product.name}

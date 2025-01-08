@@ -1,25 +1,33 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './products.components/product.list.js'; // Asegúrate de que la ruta de importación sea correcta
-import Login from './users.components/loginuser.js';
+import  { useState } from 'react';
+import Dashboard from './products.components/dashboard.js'; // Asegúrate de que la ruta de importación sea correcta
+import Login from './users.components/loginuser.js'
 import Register from './users.components/registeruser.js';
-import Carrito from './products.components/carrito.js';
+import Header from './products.components/header.js';
 
 function App() {
+  const [setCart] = useState([]);
   return (
     <Router>
-    
-        <h1 className="text-5xl font-bold text-center mb-10">
-          FERRETERIA EL CORRAL
-        </h1>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/register" element={<Register />} />
-          <Route path='/carrito' element={<Carrito/>} />
+      <Routes>
+        {/* Ruta para el login (sin Header) */}
+        <Route path="/" element={<Login />} />
 
-        </Routes>
-      
+        {/* Rutas con Header */}
+        <Route
+          path="*"
+          element={
+            <>
+              <Header /> {/* El Header se muestra aquí */}
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard setCart={setCart} />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            </>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

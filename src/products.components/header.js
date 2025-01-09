@@ -1,66 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from "../products.components/cart.js";
 import Swal from 'sweetalert2';
 
 const Header = () => {
-  const [cart, setCart] = useState([]);  // Estado del carrito
-  const [total, setTotal] = useState(0); // Estado para el total
-  const [isCartOpen, setIsCartOpen] = useState(false); // Estado para el carrito abierto
+  const { cart, removeFromCart } = useCart();  // Obtener carrito y removeFromCart
+  const [total, setTotal] = useState(0);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Cargar el carrito desde localStorage
-  useEffect(() => {
-    const updateCart = () => {
-      const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-      setCart(storedCart);
-    };
-    window.addEventListener('storage', updateCart); // Actualizar cuando el almacenamiento cambie
-
-    // Llamada inicial para cargar el carrito
-    updateCart();
-
-    // Limpieza del listener cuando el componente se desmonta
-    return () => {
-      window.removeEventListener('storage', updateCart);
-    };
-  }, []);
-
-  // Función para eliminar un producto del carrito
-  const removeFromCart = (productId) => {
-    const newCart = cart.filter(item => item.id !== productId);
-    setCart(newCart);
-    
-    localStorage.setItem('cart', JSON.stringify(newCart)); // Guardar en localStorage
-    Swal.fire({
-      title: 'Producto eliminado',
-      text: 'El producto ha sido eliminado del carrito',
-      icon: 'success',
-    });
-  };
-
-  // Calcular el total del carrito cada vez que cambian los productos
   useEffect(() => {
     const newTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     setTotal(newTotal);
   }, [cart]);
 
-  // Función para finalizar la compra
   const checkout = () => {
     Swal.fire({
       title: '¡Gracias por tu compra!',
       text: 'Tu total es: $' + total,
       icon: 'success',
     });
-    setCart([]); // Vaciar el carrito
-    localStorage.removeItem('cart'); // Eliminar el carrito de localStorage
-    setIsCartOpen(false); // Cerrar el carrito después del checkout
+    // Vaciar el carrito
   };
 
   return (
     <header className="bg-gray-900 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-xl font-bold">Tienda</h1>
-        
-        {/* Botón del carrito */}
         <div className="relative">
           <button onClick={() => setIsCartOpen(!isCartOpen)} className="flex items-center focus:outline-none">
             <FaShoppingCart size={24} />
@@ -68,12 +33,9 @@ const Header = () => {
               {cart.length}
             </span>
           </button>
-
-          {/* Menú desplegable del carrito */}
           {isCartOpen && (
             <div className="absolute right-0 mt-2 w-72 bg-white text-black shadow-lg rounded-lg p-4 z-10">
               <h2 className="text-lg font-bold mb-4">Tu carrito de compras</h2>
-
               {cart.length === 0 ? (
                 <p>No hay productos en el carrito.</p>
               ) : (
@@ -91,11 +53,9 @@ const Header = () => {
                   ))}
                 </ul>
               )}
-
               <div className="mt-4 text-lg font-semibold">
                 <strong>Total: ${total.toFixed(2)}</strong>
               </div>
-
               {cart.length > 0 && (
                 <button
                   onClick={checkout}

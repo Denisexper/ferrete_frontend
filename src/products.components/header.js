@@ -4,7 +4,8 @@ import { useCart } from "../products.components/cart.js";
 import Swal from 'sweetalert2';
 
 const Header = () => {
-  const { cart, removeFromCart } = useCart();  // Obtener carrito y removeFromCart
+
+  const { cart, setCart, removeFromCart } = useCart();  // Obtener carrito y removeFromCart
   const [total, setTotal] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -20,6 +21,8 @@ const Header = () => {
       icon: 'success',
     });
     // Vaciar el carrito
+    setCart([])
+    localStorage.removeItem("cart")
   };
 
   return (
@@ -40,8 +43,8 @@ const Header = () => {
                 <p>No hay productos en el carrito.</p>
               ) : (
                 <ul className="space-y-4">
-                  {cart.map((item) => (
-                    <li key={item.id} className="flex justify-between items-center">
+                  {cart.map((item, index) => (
+                    <li key={item.id || index} className="flex justify-between items-center">
                       <span>{item.name} - ${item.price} x {item.quantity}</span>
                       <button
                         onClick={() => removeFromCart(item.id)}

@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  const { addToCart } = useCart();  // Obtener la función addToCart desde el contexto
+  const { addToCart } = useCart()
 
   useEffect(() => {
     fetch("http://localhost:8080/api/getAll-product", { credentials: 'include' })
@@ -15,10 +15,10 @@ function ProductList() {
         })
         .then(data => {
             if (Array.isArray(data.products)) {
-                // ¡¡¡SOLUCIÓN CLAVE!!!
+                
                 const productsWithCorrectIds = data.products.map(product => ({
                     ...product,
-                    id: typeof product.id === 'number' ? product.id : parseInt(product.id, 10), // Convierte a número SI es necesario.
+                    id: typeof product.id === 'number' ? product.id : parseInt(product.id, 10),
                 }));
                 setProducts(productsWithCorrectIds);
             } else {

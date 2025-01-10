@@ -7,11 +7,11 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
         const storedCart = localStorage.getItem("cart");
-        try { // Manejo de errores al parsear localStorage
+        try {
             return storedCart ? JSON.parse(storedCart) : [];
         } catch (error) {
             console.error("Error parsing cart from localStorage:", error);
-            return []; // Retorna un carrito vacío en caso de error
+            return [];
         }
     });
 
@@ -43,4 +43,6 @@ export const CartProvider = ({ children }) => {
     const value = { cart, addToCart, removeFromCart, setCart }; 
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+
+
 };

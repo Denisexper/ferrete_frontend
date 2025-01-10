@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const Header = () => {
 
-  const { cart, setCart, removeFromCart } = useCart();  // Obtener carrito y removeFromCart
+  const { cart, setCart, removeFromCart } = useCart();
   const [total, setTotal] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -40,7 +40,7 @@ const Header = () => {
             <div className="absolute right-0 mt-2 w-72 bg-white text-black shadow-lg rounded-lg p-4 z-10">
               <h2 className="text-lg font-bold mb-4">Tu carrito de compras</h2>
               {cart.length === 0 ? (
-                <p>No hay productos en el carrito.</p>
+                <p>Aun hay productos en el carrito.</p>
               ) : (
                 <ul className="space-y-4">
                   {cart.map((item) => (
@@ -67,7 +67,7 @@ const Header = () => {
                   onClick={checkout}
                   className="mt-6 bg-green-500 text-white py-2 px-6 rounded-lg w-full hover:bg-green-600"
                 >
-                  Finalizar compra
+                  Realizar compra
                 </button>
               )}
             </div>

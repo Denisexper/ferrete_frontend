@@ -43,15 +43,18 @@ const Header = () => {
                 <p>No hay productos en el carrito.</p>
               ) : (
                 <ul className="space-y-4">
-                  {cart.map((item, index) => (
-                    <li key={item.id || index} className="flex justify-between items-center">
+                  {cart.map((item) => (
+                    <li key={item._id} className="flex justify-between items-center">
                       <span>{item.name} - ${item.price} x {item.quantity}</span>
                       <button
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => {
+                          removeFromCart(item._id);
+                        }}
                         className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600"
                       >
                         Eliminar
                       </button>
+
                     </li>
                   ))}
                 </ul>

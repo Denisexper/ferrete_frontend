@@ -21,11 +21,11 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (product) => {
         setCart(prevCart => {
-            const productIndex = prevCart.findIndex(item => item.id === product.id);
+            const productIndex = prevCart.findIndex(item => item._id === product._id);
 
             if (productIndex !== -1) {
-                return prevCart.map((item, index) =>
-                    index === productIndex
+                return prevCart.map((item, _id) =>
+                    _id === productIndex
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
